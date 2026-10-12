@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schriftkonverter: Griechisch, Kyrillisch & Fraktur</title>
   
-  <!-- Google Fonts: Inter & Unifraktur (Vollständiger Zeichensatz inkl. Latin Extended-A für Lang-s) -->
+  <!-- Google Fonts: Inter & Unifraktur -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=UnifrakturCook:wght@700&amp;family=UnifrakturMaguntia&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet">
@@ -20,7 +20,23 @@
       --text-main: #0f172a;
       --text-muted: #64748b;
       --accent: #f1f5f9;
+      --accent-hover: #e2e8f0;
+      --nav-bg: #e2e8f0;
       --radius: 12px;
+      --transition: 0.2s ease;
+    }
+
+    body.dark-mode {
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --bg: #0b1120;
+      --card-bg: #151f32;
+      --border: #26354f;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #1e2c45;
+      --accent-hover: #2b3d5d;
+      --nav-bg: #1a263d;
     }
 
     * {
@@ -35,6 +51,7 @@
       color: var(--text-main);
       line-height: 1.5;
       padding: 24px 16px;
+      transition: background-color var(--transition), color var(--transition);
     }
 
     .container {
@@ -42,31 +59,58 @@
       margin: 0 auto;
     }
 
+    /* Header mit Theme-Toggle */
     header {
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
       margin-bottom: 28px;
     }
 
-    header h1 {
+    .header-text h1 {
       font-size: 2rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
-    header p {
+    .header-text p {
       color: var(--text-muted);
       font-size: 0.95rem;
+    }
+
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--accent);
+      border-color: var(--primary);
     }
 
     /* Tabs */
     .nav-tabs {
       display: flex;
       gap: 8px;
-      background: #e2e8f0;
+      background: var(--nav-bg);
       padding: 6px;
       border-radius: var(--radius);
       margin-bottom: 24px;
+      transition: background-color var(--transition);
     }
 
     .nav-tab-btn {
@@ -83,13 +127,13 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.2s ease;
+      transition: all var(--transition);
     }
 
     .nav-tab-btn.active {
       background: var(--card-bg);
       color: var(--text-main);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
     .tab-content {
@@ -107,6 +151,7 @@
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: background-color var(--transition), border-color var(--transition);
     }
 
     .control-row {
@@ -137,10 +182,12 @@
       padding: 8px 12px;
       border-radius: 8px;
       border: 1px solid var(--border);
-      background: #fff;
+      background: var(--card-bg);
+      color: var(--text-main);
       cursor: pointer;
       outline: none;
       font-family: inherit;
+      transition: border-color var(--transition);
     }
 
     select:focus {
@@ -152,7 +199,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       align-items: center;
     }
 
@@ -160,23 +207,25 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       margin-right: 4px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .char-btn {
       background: var(--accent);
+      color: var(--text-main);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 5px 10px;
+      padding: 5px 9px;
       font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
       font-family: inherit;
-      transition: background 0.15s;
+      transition: background var(--transition), border-color var(--transition);
     }
 
     .char-btn:hover {
-      background: #cbd5e1;
+      background: var(--accent-hover);
+      border-color: var(--primary);
     }
 
     /* Input & Output Grids */
@@ -214,11 +263,13 @@
       padding: 14px;
       border-radius: 8px;
       border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text-main);
       font-size: 1.05rem;
       font-family: inherit;
       resize: vertical;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color var(--transition);
     }
 
     textarea:focus {
@@ -226,7 +277,8 @@
     }
 
     .output-area {
-      background: #f8fafc;
+      background: var(--bg);
+      color: var(--text-main);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 14px;
@@ -238,7 +290,7 @@
       user-select: text;
     }
 
-    /* Stilreine Fraktur-Typografie mit aktivierten OpenType-Ligaturen */
+    /* Stilreine Fraktur-Typografie */
     .fraktur-font {
       font-family: 'UnifrakturMaguntia', 'UnifrakturCook', serif;
       font-size: 1.75rem;
@@ -267,7 +319,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s;
+      transition: all var(--transition);
     }
 
     .btn-secondary {
@@ -277,7 +329,7 @@
     }
 
     .btn-secondary:hover {
-      background: #e2e8f0;
+      background: var(--accent-hover);
     }
 
     .btn-primary {
@@ -293,10 +345,11 @@
     .info-box {
       margin-top: 24px;
       padding: 16px;
-      background: #f1f5f9;
+      background: var(--accent);
+      border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 0.85rem;
-      color: #334155;
+      color: var(--text-muted);
     }
 
     .info-box h4 {
@@ -309,7 +362,9 @@
       display: inline-block;
       padding: 2px 6px;
       border-radius: 4px;
-      background: #e2e8f0;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--primary);
       font-size: 0.75rem;
       font-family: 'Fira Code', monospace;
       margin: 0 2px;
@@ -320,8 +375,13 @@
 
   <div class="container">
     <header>
-      <h1>Akademischer Schriftkonverter</h1>
-      <p>Transkription &amp; Transliteration nach ISO 843, DIN 1460 &amp; historische Fraktur</p>
+      <div class="header-text">
+        <h1>Akademischer Schriftkonverter</h1>
+        <p>Transkription &amp; Transliteration nach ISO 843, DIN 1460 &amp; historische Fraktur</p>
+      </div>
+      <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Design umschalten">
+        <span id="themeIcon">🌙</span> <span id="themeText">Dunkelmodus</span>
+      </button>
     </header>
 
     <!-- TAB REITER -->
@@ -349,11 +409,13 @@
           <span style="font-size: 0.85rem; color: var(--text-muted);">Standard: ISO 843</span>
         </div>
 
-        <!-- Nur echte Sonderzeichen (nicht auf Standard-Tastatur) -->
+        <!-- Sonderzeichen-Leiste mit Klein- und Großbuchstaben -->
         <div class="char-bar">
           <span class="char-bar-title">Sonderzeichen für Transliteration:</span>
-          <button class="char-btn" onclick="insertChar('greekInput', 'ō')">ō (Omega)</button>
-          <button class="char-btn" onclick="insertChar('greekInput', 'ī')">ī (Eta)</button>
+          <button class="char-btn" onclick="insertChar('greekInput', 'ō')">ō (ω)</button>
+          <button class="char-btn" onclick="insertChar('greekInput', 'Ō')">Ō (Ω)</button>
+          <button class="char-btn" onclick="insertChar('greekInput', 'ī')">ī (η)</button>
+          <button class="char-btn" onclick="insertChar('greekInput', 'Ī')">Ī (Η)</button>
         </div>
 
         <div class="io-grid">
@@ -378,8 +440,8 @@
 
         <div class="info-box">
           <h4>Hinweise zur Konvertierung:</h4>
-          <p>• <strong>Transliteration (Latein ➔ Gr):</strong> Strikt 1:1 eindeutig umkehrbar mit <span class="badge">ō</span> für <span class="badge">ω</span> und <span class="badge">ī</span> für <span class="badge">η</span>.<br>
-          • <strong>Transkription (Latein ➔ Gr):</strong> Löst phonetische Mehrdeutigkeiten nach Häufigkeit auf (z. B. einfaches <em>i</em> wird zu <span class="badge">ι</span>, <em>o</em> zu <span class="badge">ο</span>, <em>th</em> zu <span class="badge">θ</span>, <em>ch</em> zu <span class="badge">χ</span>, <em>ps</em> zu <span class="badge">ψ</span>, <em>av/af</em> zu <span class="badge">αυ</span>). Umgekehrt wird nach ISO 843 normgerecht transkribiert.</p>
+          <p>• <strong>Transliteration (Latein ➔ Gr):</strong> Strikt 1:1 eindeutig umkehrbar mit <span class="badge">ō/Ō</span> für <span class="badge">ω/Ω</span> und <span class="badge">ī/Ī</span> für <span class="badge">η/Η</span>. Das lateinische Grundalphabet wird hierbei ohne Lücken abgebildet (z. B. <span class="badge">H ➔ Η</span>, <span class="badge">C ➔ Κ</span>, <span class="badge">W ➔ Ω</span>, <span class="badge">Q ➔ Κ</span>, <span class="badge">J ➔ Ι</span>), während der Buchstabe <em>s</em> am Wortende kontextbezogen als <span class="badge">ς</span> und sonst als <span class="badge">σ</span> realisiert wird.<br>
+          • <strong>Transkription (Latein ➔ Gr):</strong> Löst phonetische Mehrdeutigkeiten nach Häufigkeit und Aussprache auf (z. B. einfaches <em>i</em> wird zu <span class="badge">ι</span>, <em>o</em> zu <span class="badge">ο</span>, <em>th</em> zu <span class="badge">θ</span>, <em>ch</em> zu <span class="badge">χ</span>, <em>ps</em> zu <span class="badge">ψ</span>, <em>av/af</em> zu <span class="badge">αυ</span>, <em>sch</em> zu <span class="badge">σ</span>, <em>tsch</em> zu <span class="badge">τσ</span>). Umgekehrt wird nach ISO 843 normgerecht transkribiert.</p>
         </div>
       </div>
     </div>
@@ -402,15 +464,21 @@
           <span style="font-size: 0.85rem; color: var(--text-muted);">Standard: DIN 1460 / Duden</span>
         </div>
 
-        <!-- Nur echte Sonderzeichen (Hatscheks & Zeichen) -->
+        <!-- Sonderzeichen-Leiste mit Klein- und Großbuchstaben -->
         <div class="char-bar">
           <span class="char-bar-title">Sonderzeichen für DIN 1460:</span>
-          <button class="char-btn" onclick="insertChar('cyrInput', 'ž')">ž (ж)</button>
-          <button class="char-btn" onclick="insertChar('cyrInput', 'č')">č (ч)</button>
-          <button class="char-btn" onclick="insertChar('cyrInput', 'š')">š (ш)</button>
-          <button class="char-btn" onclick="insertChar('cyrInput', 'šč')">šč (щ)</button>
-          <button class="char-btn" onclick="insertChar('cyrInput', 'ë')">ë (ё)</button>
-          <button class="char-btn" onclick="insertChar('cyrInput', 'è')">è (э)</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'ž')">ž</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'Ž')">Ž</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'č')">č</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'Č')">Č</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'š')">š</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'Š')">Š</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'šč')">šč</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'Šč')">Šč</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'ë')">ë</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'Ë')">Ë</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'è')">è</button>
+          <button class="char-btn" onclick="insertChar('cyrInput', 'È')">È</button>
           <button class="char-btn" onclick="insertChar('cyrInput', '\x27')">' (ь)</button>
           <button class="char-btn" onclick="insertChar('cyrInput', '\x22')">&quot; (ъ)</button>
         </div>
@@ -437,8 +505,8 @@
 
         <div class="info-box">
           <h4>Hinweise zur Konvertierung:</h4>
-          <p>• <strong>Transliteration (DIN 1460):</strong> Exakte 1:1 Zuordnung mit Zeichen wie <span class="badge">šč</span>, <span class="badge">ž</span>, <span class="badge">č</span>.<br>
-          • <strong>Transkription (Latein ➔ Kyrillisch):</strong> Löst deutsche Schreibweisen auf (<span class="badge">schtsch</span> ➔ щ, <span class="badge">tsch</span> ➔ ч, <span class="badge">sch</span> ➔ ш, <span class="badge">w</span> ➔ в, <span class="badge">z</span> ➔ ц, <span class="badge">ss</span> ➔ с, <span class="badge">je</span> ➔ е, <span class="badge">ja</span> ➔ я, <span class="badge">ju</span> ➔ ю).</p>
+          <p>• <strong>Transliteration (DIN 1460):</strong> Exakte Zuordnung der wissenschaftlichen Umschrift mit diakritischen Zeichen (<span class="badge">šč/Šč</span> für щ, <span class="badge">ž/Ž</span> für ж, <span class="badge">č/Č</span> für ч, <span class="badge">ë/Ë</span> für ё, <span class="badge">è/È</span> für э). Alle 26 Grundbuchstaben werden transliteriert (<span class="badge">H ➔ Х</span>, <span class="badge">X ➔ Кс</span>, <span class="badge">Q ➔ К</span>, <span class="badge">C ➔ Ц</span>, <span class="badge">W ➔ В</span>).<br>
+          • <strong>Transkription (Latein ➔ Kyrillisch):</strong> Löst typische deutsche Schreibweisen und Konsonantenhäufungen auf (<span class="badge">schtsch ➔ щ</span>, <span class="badge">tsch ➔ ч</span>, <span class="badge">sch ➔ ш</span>, <span class="badge">w ➔ в</span>, <span class="badge">z ➔ ц</span>, <span class="badge">ss ➔ с</span>, <span class="badge">je ➔ е</span>, <span class="badge">ja ➔ я</span>, <span class="badge">ju ➔ ю</span>).</p>
         </div>
       </div>
     </div>
@@ -497,7 +565,40 @@
 
   <script>
     /* ==============================================================
-       1. TABS & HILFSFUNKTIONEN
+       1. THEME TOGGLE (STANDARD: IMMER HELL / NORMAL)
+       ============================================================== */
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeButton(isDark);
+    }
+
+    function updateThemeButton(isDark) {
+      const icon = document.getElementById('themeIcon');
+      const text = document.getElementById('themeText');
+      if (isDark) {
+        icon.innerText = '☀️';
+        text.innerText = 'Hellmodus';
+      } else {
+        icon.innerText = '🌙';
+        text.innerText = 'Dunkelmodus';
+      }
+    }
+
+    // Standardmäßig IMMER Hellmodus, außer der Nutzer hat explizit 'dark' gespeichert
+    (function initTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.body.classList.add('dark-mode');
+        updateThemeButton(true);
+      } else {
+        document.body.classList.remove('dark-mode');
+        updateThemeButton(false);
+      }
+    })();
+
+    /* ==============================================================
+       2. TABS & HILFSFUNKTIONEN
        ============================================================== */
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -536,7 +637,7 @@
     }
 
     /* ==============================================================
-       2. GRIECHISCH LOGIK (ISO 843: Transliteration & Transkription)
+       3. GRIECHISCH LOGIK (Lückenlos für alle 26 Buchstaben)
        ============================================================== */
     const GREEK_VOWELS = 'αεηιουωΑΕΗΙΟΥΩάέήίόύώ';
     const GREEK_VOICED_CONS = 'βγδζλμνρΒΓΔΖΛΜΝΡ';
@@ -599,7 +700,7 @@
       return res;
     }
 
-    // Eindeutige Transliteration: Latein -> Griechisch
+    // Transliteration Latein -> Griechisch (alle 26 Grundbuchstaben + Umlaute)
     function latinToGreekTransliteration(text) {
       let res = '';
       let i = 0;
@@ -609,76 +710,111 @@
         let sub1 = text[i];
         let sub1L = sub1.toLowerCase();
 
+        // 2-Zeichen-Kombinationen
         if (sub2L === 'th') { res += (sub2[0] === 'T' ? 'Θ' : 'θ'); i += 2; continue; }
         if (sub2L === 'ch') { res += (sub2[0] === 'C' ? 'Χ' : 'χ'); i += 2; continue; }
         if (sub2L === 'ps') { res += (sub2[0] === 'P' ? 'Ψ' : 'ψ'); i += 2; continue; }
+        if (sub2L === 'ph') { res += (sub2[0] === 'P' ? 'Φ' : 'φ'); i += 2; continue; }
+        if (sub2L === 'qu') { res += (sub2[0] === 'Q' ? 'Κου' : 'κου'); i += 2; continue; }
 
+        // S-Logik (Schluss-s vs. Standard-Sigma)
         if (sub1L === 's') {
           let nextChar = text[i+1] || '';
-          let isWordEnd = !(/[a-zA-Z\u00C0-\u024F]/.test(nextChar));
+          let isWordEnd = !(/[a-zA-ZäöüÄÖÜß\u00C0-\u024F]/.test(nextChar));
           res += (sub1 === 'S') ? 'Σ' : (isWordEnd ? 'ς' : 'σ');
           i++; continue;
         }
 
-        const MAP = {
-          'ō':'ω', 'Ō':'Ω', 'o':'ο', 'O':'Ο',
-          'ī':'η', 'Ī':'Η', 'i':'ι', 'I':'Ι',
-          'a':'α', 'A':'Α', 'b':'β', 'B':'Β', 'v':'β', 'V':'Β',
-          'g':'γ', 'G':'Γ', 'd':'δ', 'D':'Δ', 'e':'ε', 'E':'Ε',
-          'z':'ζ', 'Z':'Ζ', 'k':'κ', 'K':'Κ', 'l':'λ', 'L':'Λ',
-          'm':'μ', 'M':'Μ', 'n':'ν', 'N':'Ν', 'x':'ξ', 'X':'Ξ',
-          'p':'π', 'P':'Π', 'r':'ρ', 'R':'Ρ', 't':'τ', 'T':'Τ',
-          'y':'υ', 'Y':'Υ', 'u':'υ', 'U':'Υ', 'f':'φ', 'F':'Φ'
+        // Lückenlose Abbildung aller 26 Grundbuchstaben
+        const LAT_GRK_COMPLETE = {
+          'a':'α', 'A':'Α',
+          'b':'β', 'B':'Β',
+          'c':'κ', 'C':'Κ',
+          'd':'δ', 'D':'Δ',
+          'e':'ε', 'E':'Ε',
+          'f':'φ', 'F':'Φ',
+          'g':'γ', 'G':'Γ',
+          'h':'η', 'H':'Η',      // Deutsch H wird Eta
+          'i':'ι', 'I':'Ι',
+          'j':'ι', 'J':'Ι',
+          'k':'κ', 'K':'Κ',
+          'l':'λ', 'L':'Λ',
+          'm':'μ', 'M':'Μ',
+          'n':'ν', 'N':'Ν',
+          'o':'ο', 'O':'Ο',
+          'p':'π', 'P':'Π',
+          'q':'κ', 'Q':'Κ',
+          'r':'ρ', 'R':'Ρ',
+          't':'τ', 'T':'Τ',
+          'u':'υ', 'U':'Υ',
+          'v':'β', 'V':'Β',
+          'w':'ω', 'W':'Ω',
+          'x':'ξ', 'X':'Ξ',
+          'y':'υ', 'Y':'Υ',
+          'z':'ζ', 'Z':'Ζ',
+          'ō':'ω', 'Ō':'Ω',
+          'ī':'η', 'Ī':'Η',
+          'ä':'αι', 'Ä':'Αι',
+          'ö':'οι', 'Ö':'Οι',
+          'ü':'υ', 'Ü':'Υ',
+          'ß':'ς'
         };
 
-        res += MAP[sub1] !== undefined ? MAP[sub1] : sub1;
+        res += LAT_GRK_COMPLETE[sub1] !== undefined ? LAT_GRK_COMPLETE[sub1] : sub1;
         i++;
       }
       return res;
     }
 
-    // Transkription Latein -> Griechisch (Häufigkeitsprinzip)
+    // Transkription Latein -> Griechisch
     function latinToGreekTranscription(text) {
       let res = '';
       let i = 0;
       while (i < text.length) {
+        let sub4 = text.substr(i, 4).toLowerCase();
         let sub3 = text.substr(i, 3).toLowerCase();
         let sub2 = text.substr(i, 2).toLowerCase();
         let c = text[i];
         let isUpper = (c === c.toUpperCase() && c !== c.toLowerCase());
 
-        // Diphthonge / Nasale
-        if (sub3 === 'nch') { res += isUpper ? 'Γχ' : 'γχ'; i += 3; continue; }
-        if (sub2 === 'ng')  { res += isUpper ? 'Γγ' : 'γγ'; i += 2; continue; }
-        if (sub2 === 'gk')  { res += isUpper ? 'Γκ' : 'γκ'; i += 2; continue; }
-        if (sub2 === 'nx')  { res += isUpper ? 'Γξ' : 'γξ'; i += 2; continue; }
-        if (sub2 === 'th')  { res += isUpper ? 'Θ' : 'θ'; i += 2; continue; }
-        if (sub2 === 'ch')  { res += isUpper ? 'Χ' : 'χ'; i += 2; continue; }
-        if (sub2 === 'ps')  { res += isUpper ? 'Ψ' : 'ψ'; i += 2; continue; }
+        // Mehrbuchstabige Laute
+        if (sub4 === 'tsch') { res += isUpper ? 'Τσ' : 'τσ'; i += 4; continue; }
+        if (sub3 === 'sch')  { res += isUpper ? 'Σ' : 'σ'; i += 3; continue; }
+        if (sub3 === 'nch')  { res += isUpper ? 'Γχ' : 'γχ'; i += 3; continue; }
+        if (sub2 === 'tz')   { res += isUpper ? 'Τζ' : 'τζ'; i += 2; continue; }
+        if (sub2 === 'ck')   { res += isUpper ? 'Κ' : 'κ'; i += 2; continue; }
+        if (sub2 === 'qu')   { res += isUpper ? 'Κβ' : 'κβ'; i += 2; continue; }
+        if (sub2 === 'ph')   { res += isUpper ? 'Φ' : 'φ'; i += 2; continue; }
+        if (sub2 === 'ng')   { res += isUpper ? 'Γγ' : 'γγ'; i += 2; continue; }
+        if (sub2 === 'gk')   { res += isUpper ? 'Γκ' : 'γκ'; i += 2; continue; }
+        if (sub2 === 'nx')   { res += isUpper ? 'Γξ' : 'γξ'; i += 2; continue; }
+        if (sub2 === 'th')   { res += isUpper ? 'Θ' : 'θ'; i += 2; continue; }
+        if (sub2 === 'ch')   { res += isUpper ? 'Χ' : 'χ'; i += 2; continue; }
+        if (sub2 === 'ps')   { res += isUpper ? 'Ψ' : 'ψ'; i += 2; continue; }
         if (sub2 === 'av' || sub2 === 'af') { res += isUpper ? 'Αυ' : 'αυ'; i += 2; continue; }
         if (sub2 === 'ev' || sub2 === 'ef') { res += isUpper ? 'Ευ' : 'ευ'; i += 2; continue; }
-        if (sub2 === 'ou')  { res += isUpper ? 'Ου' : 'ου'; i += 2; continue; }
+        if (sub2 === 'ou')   { res += isUpper ? 'Ου' : 'ου'; i += 2; continue; }
 
         if (c.toLowerCase() === 's') {
           let nextChar = text[i+1] || '';
-          let isWordEnd = !(/[a-zA-Z\u00C0-\u024F]/.test(nextChar));
+          let isWordEnd = !(/[a-zA-ZäöüÄÖÜß\u00C0-\u024F]/.test(nextChar));
           res += isUpper ? 'Σ' : (isWordEnd ? 'ς' : 'σ');
           i++; continue;
         }
 
-        // Häufigste Zuordnungen
         const FREQ_MAP = {
-          'a':'α', 'b':'β', 'v':'β', 'g':'γ', 'd':'δ',
-          'e':'ε', 'z':'ζ', 'i':'ι', 'k':'κ', 'l':'λ',
-          'm':'μ', 'n':'ν', 'x':'ξ', 'o':'ο', 'p':'π',
-          'r':'ρ', 't':'τ', 'u':'υ', 'y':'υ', 'f':'φ',
-          'w':'ω'
+          'a':'α', 'b':'β', 'c':'κ', 'd':'δ', 'e':'ε',
+          'f':'φ', 'g':'γ', 'h':'η', 'i':'ι', 'j':'ι',
+          'k':'κ', 'l':'λ', 'm':'μ', 'n':'ν', 'o':'ο',
+          'p':'π', 'q':'κ', 'r':'ρ', 't':'τ', 'u':'υ',
+          'v':'β', 'w':'ω', 'x':'ξ', 'y':'υ', 'z':'ζ',
+          'ä':'ε', 'ö':'οι', 'ü':'υ', 'ß':'ς'
         };
 
         let low = c.toLowerCase();
         if (FREQ_MAP[low]) {
           let mapped = FREQ_MAP[low];
-          res += isUpper ? mapped.toUpperCase() : mapped;
+          res += isUpper ? (mapped.charAt(0).toUpperCase() + mapped.slice(1)) : mapped;
         } else {
           res += c;
         }
@@ -704,13 +840,13 @@
     }
 
     /* ==============================================================
-       3. KYRILLISCH LOGIK (DIN 1460 & Duden-Transkription)
+       4. KYRILLISCH LOGIK (Lückenlos für alle 26 Buchstaben)
        ============================================================== */
     const CYR_TO_DIN1460 = {
       'А':'A', 'а':'a', 'Б':'B', 'б':'b', 'В':'V', 'в':'v', 'Г':'G', 'г':'g',
       'Д':'D', 'д':'d', 'Е':'E', 'е':'e', 'Ё':'Ë', 'ё':'ë', 'Ж':'Ž', 'ж':'ž',
       'З':'Z', 'з':'z', 'И':'I', 'и':'i', 'Й':'J', 'й':'j', 'К':'K', 'к':'k',
-      'Л':'L', 'л':'l', 'М':'M', 'м':'m', 'Н':'N', 'н':'n', 'О':'O', 'о':'o',
+      'Л':'L', 'л':'l', 'М':'M', 'm':'m', 'Н':'N', 'н':'n', 'О':'O', 'о':'o',
       'П':'P', 'п':'p', 'Р':'R', 'р':'r', 'С':'S', 'с':'s', 'Т':'T', 'т':'t',
       'У':'U', 'у':'u', 'Ф':'F', 'ф':'f', 'Х':'Ch', 'х':'ch', 'Ц':'C', 'ц':'c',
       'Ч':'Č', 'ч':'č', 'Ш':'Š', 'ш':'š', 'Щ':'Šč', 'щ':'šč', 'Ъ':'"', 'ъ':'"',
@@ -727,32 +863,61 @@
       return res;
     }
 
+    // Transliteration Latein -> Kyrillisch (alle 26 Grundbuchstaben + Umlaute)
     function latinToCyrillicTransliteration(text) {
       let res = '';
       let i = 0;
       while (i < text.length) {
-        if (text.substr(i, 2).toLowerCase() === 'šč') {
-          res += (text[i] === 'Š' ? 'Щ' : 'щ');
-          i += 2; continue;
-        }
         let sub2 = text.substr(i, 2).toLowerCase();
-        if (sub2 === 'ch') { res += (text[i] === 'C' ? 'Х' : 'х'); i += 2; continue; }
-        if (sub2 === 'ju') { res += (text[i] === 'J' ? 'Ю' : 'ю'); i += 2; continue; }
-        if (sub2 === 'ja') { res += (text[i] === 'J' ? 'Я' : 'я'); i += 2; continue; }
+        let isUpper = text[i] === text[i].toUpperCase() && text[i] !== text[i].toLowerCase();
 
-        const LAT_CYR_MAP = {
-          'a':'а', 'A':'А', 'b':'б', 'B':'Б', 'v':'в', 'V':'В', 'w':'в', 'W':'В',
-          'g':'г', 'G':'Г', 'd':'д', 'D':'Д', 'e':'е', 'E':'Е', 'ë':'ё', 'Ë':'Ё',
-          'ž':'ж', 'Ž':'Ж', 'z':'з', 'Z':'З', 'i':'и', 'I':'И', 'j':'й', 'J':'Й',
-          'k':'к', 'K':'К', 'l':'л', 'L':'Л', 'm':'м', 'M':'М', 'n':'н', 'N':'Н',
-          'o':'о', 'O':'О', 'p':'п', 'P':'П', 'r':'р', 'R':'Р', 's':'с', 'S':'С',
-          't':'т', 'T':'Т', 'u':'у', 'U':'У', 'f':'ф', 'F':'Ф', 'h':'х', 'H':'Х',
-          'c':'ц', 'C':'Ц', 'č':'ч', 'Č':'Ч', 'š':'ш', 'Š':'Ш', '"':'ъ', '\'':'ь',
-          'y':'ы', 'Y':'Ы', 'è':'э', 'È':'Э'
+        if (sub2 === 'šč') { res += isUpper ? 'Щ' : 'щ'; i += 2; continue; }
+        if (sub2 === 'ch') { res += isUpper ? 'Х' : 'х'; i += 2; continue; }
+        if (sub2 === 'ju') { res += isUpper ? 'Ю' : 'ю'; i += 2; continue; }
+        if (sub2 === 'ja') { res += isUpper ? 'Я' : 'я'; i += 2; continue; }
+        if (sub2 === 'qu') { res += isUpper ? 'Кв' : 'кв'; i += 2; continue; }
+
+        const LAT_CYR_COMPLETE = {
+          'a':'а', 'A':'А',
+          'b':'б', 'B':'Б',
+          'c':'ц', 'C':'Ц',
+          'd':'д', 'D':'Д',
+          'e':'е', 'E':'Е',
+          'f':'ф', 'F':'Ф',
+          'g':'г', 'G':'Г',
+          'h':'х', 'H':'Х',      // H wird Cha
+          'i':'и', 'I':'И',
+          'j':'й', 'J':'Й',
+          'k':'к', 'K':'К',
+          'l':'л', 'L':'Л',
+          'm':'м', 'M':'М',
+          'n':'н', 'N':'Н',
+          'o':'о', 'O':'О',
+          'p':'п', 'P':'П',
+          'q':'к', 'Q':'К',      // Q wird Ka
+          'r':'р', 'R':'Р',
+          's':'с', 'S':'С',
+          't':'т', 'T':'Т',
+          'u':'у', 'U':'У',
+          'v':'в', 'V':'В',
+          'w':'в', 'W':'В',
+          'x':'кс', 'X':'Кс',    // X wird Ks
+          'y':'ы', 'Y':'Ы',
+          'z':'з', 'Z':'З',
+          'ž':'ж', 'Ž':'Ж',
+          'č':'ч', 'Č':'Ч',
+          'š':'ш', 'Š':'Ш',
+          'ë':'ё', 'Ë':'Ё',
+          'è':'э', 'È':'Э',
+          '"':'ъ', '\'':'ь',
+          'ä':'э', 'Ä':'Э',
+          'ö':'ё', 'Ö':'Ё',
+          'ü':'ю', 'Ü':'Ю',
+          'ß':'сс', 'ẞ':'Сс'
         };
 
         let sub1 = text[i];
-        res += LAT_CYR_MAP[sub1] !== undefined ? LAT_CYR_MAP[sub1] : sub1;
+        res += LAT_CYR_COMPLETE[sub1] !== undefined ? LAT_CYR_COMPLETE[sub1] : sub1;
         i++;
       }
       return res;
@@ -798,7 +963,7 @@
       return res;
     }
 
-    // Transkription Latein -> Kyrillisch (Häufigkeitsprinzip nach deutscher Aussprache)
+    // Transkription Latein -> Kyrillisch
     function latinToCyrillicTranscription(text) {
       let res = '';
       let i = 0;
@@ -815,6 +980,10 @@
         if (sub4 === 'tsch')    { res += isUpper ? 'Ч' : 'ч'; i += 4; continue; }
         if (sub3 === 'sch')     { res += isUpper ? 'Ш' : 'ш'; i += 3; continue; }
         if (sub2 === 'ch')     { res += isUpper ? 'Х' : 'х'; i += 2; continue; }
+        if (sub2 === 'qu')     { res += isUpper ? 'Кв' : 'кв'; i += 2; continue; }
+        if (sub2 === 'tz')     { res += isUpper ? 'Ц' : 'ц'; i += 2; continue; }
+        if (sub2 === 'ck')     { res += isUpper ? 'К' : 'к'; i += 2; continue; }
+        if (sub2 === 'ph')     { res += isUpper ? 'Ф' : 'ф'; i += 2; continue; }
         if (sub2 === 'ss')     { res += isUpper ? 'С' : 'с'; i += 2; continue; }
         if (sub2 === 'je')     { res += isUpper ? 'Е' : 'е'; i += 2; continue; }
         if (sub2 === 'jo')     { res += isUpper ? 'Ё' : 'ё'; i += 2; continue; }
@@ -822,17 +991,18 @@
         if (sub2 === 'ja')     { res += isUpper ? 'Я' : 'я'; i += 2; continue; }
 
         const FREQ_CYR = {
-          'a':'а', 'b':'б', 'w':'в', 'v':'в', 'g':'г',
-          'd':'д', 'e':'е', 'z':'ц', 'i':'и', 'j':'й',
+          'a':'а', 'b':'б', 'c':'ц', 'd':'д', 'e':'е',
+          'f':'ф', 'g':'г', 'h':'х', 'i':'и', 'j':'й',
           'k':'к', 'l':'л', 'm':'м', 'n':'н', 'o':'о',
-          'p':'п', 'r':'р', 's':'с', 't':'т', 'u':'у',
-          'f':'ф', 'y':'ы'
+          'p':'п', 'q':'к', 'r':'р', 's':'с', 't':'т',
+          'u':'у', 'v':'в', 'w':'в', 'x':'кс', 'y':'ы',
+          'z':'ц', 'ä':'э', 'ö':'ё', 'ü':'ю', 'ß':'сс'
         };
 
         let low = c.toLowerCase();
         if (FREQ_CYR[low]) {
           let mapped = FREQ_CYR[low];
-          res += isUpper ? mapped.toUpperCase() : mapped;
+          res += isUpper ? (mapped.charAt(0).toUpperCase() + mapped.slice(1)) : mapped;
         } else {
           res += c;
         }
@@ -858,7 +1028,7 @@
     }
 
     /* ==============================================================
-       4. FRAKTUR LOGIK (Historische Lang-s Regeln & Typografie)
+       5. FRAKTUR LOGIK
        ============================================================== */
     const UNICODE_FRAKTUR = {
       'A':'𝔄', 'B':'𝔅', 'C':'ℭ', 'D':'𝔇', 'E':'𝔈', 'F':'𝔉', 'G':'𝔊', 'H':'ℌ',
@@ -868,7 +1038,8 @@
       'a':'𝔞', 'b':'𝔟', 'c':'𝔠', 'd':'𝔡', 'e':'𝔢', 'f':'𝔣', 'g':'𝔤', 'h':'𝔥',
       'i':'𝔦', 'j':'𝔧', 'k':'𝔨', 'l':'𝔩', 'm':'𝔪', 'n':'𝔫', 'o':'𝔬', 'p':'𝔭',
       'q':'𝔮', 'r':'𝔯', 's':'𝔰', 'ſ':'𝔰', 't':'𝔱', 'u':'𝔲', 'v':'𝔳', 'w':'𝔴',
-      'x':'𝔵', 'y':'𝔶', 'z':'𝔷', 'ß':'ß'
+      'x':'𝔵', 'y':'𝔶', 'z':'𝔷', 'ß':'ß',
+      'Ä':'𝔄\u0308', 'Ö':'𝔒\u0308', 'Ü':'𝔘\u0308', 'ä':'𝔞\u0308', 'ö':'𝔬\u0308', 'ü':'𝔲\u0308'
     };
 
     const REVERSE_FRAKTUR = {};
@@ -895,14 +1066,14 @@
             continue;
           }
 
-          // 2. Vor typischen Endungen / Suffixgrenzen (Silbenende)
+          // 2. Vor typischen Endungen / Suffixgrenzen
           let remainder = w.substring(i);
           if (/^s(chen|lein|los|sam|bar|haft|mus|nis|tum)\b/i.test(remainder)) {
             chars[i] = 's';
             continue;
           }
 
-          // 3. Fugen-s vor typischen Komposita-Stämmen
+          // 3. Fugen-s vor Komposita
           if (/^s(berg|tag|dorf|mann|land|stadt|stube)\b/i.test(remainder)) {
             chars[i] = 's';
             continue;
@@ -916,7 +1087,7 @@
             continue;
           }
 
-          // 5. In allen anderen Fällen (Wortanlaut, vor Vokalen, vor Plosiven wie t, p, k) -> langes s
+          // 5. Normalfall: langes s
           chars[i] = 'ſ';
         }
         return chars.join('');
@@ -944,7 +1115,6 @@
           out.innerText = uni;
         }
       } else {
-        // Fraktur -> Antiqua
         out.classList.remove('fraktur-font');
         let normal = '';
         for (let ch of input) {
